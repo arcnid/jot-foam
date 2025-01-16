@@ -1,84 +1,75 @@
 "use client";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
-export default function Home() {
-  const employees = [
-    "Alice Johnson",
-    "Bob Smith",
-    "Charlie Brown",
-    "Daisy Ridley",
-  ];
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
+export default function LandingPage() {
+	const router = useRouter();
 
-  const formLinks = [
-    { title: "Onboarding Form", url: "/forms/onboarding" },
-    { title: "Performance Review", url: "/forms/performance-review" },
-    { title: "Exit Interview", url: "/forms/exit-interview" },
-  ];
+	return (
+		<div className="min-h-screen flex flex-col items-center justify-center bg-neutral-900 text-white font-sans">
+			<h1 className="text-4xl font-bold mb-6">
+				Prefill Form Management System
+			</h1>
+			<p className="text-lg text-gray-400 mb-8 text-center max-w-2xl">
+				📄Create and manage form templates!
+			</p>
 
-  const handleFormNavigation = (url) => {
-    if (selectedEmployee) {
-      // Example of how to dynamically append the selected employee
-      const query = `?employee=${encodeURIComponent(selectedEmployee)}`;
-      window.location.href = `${url}${query}`;
-    } else {
-      alert("Please select an employee first.");
-    }
-  };
+			<div className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-4xl">
+				{/* Form Dispatch Section */}
+				<div className="flex flex-col items-center bg-neutral-800 p-6 rounded-lg shadow-lg">
+					<h2 className="text-xl font-semibold text-gray-300 mb-4">
+						Form Dispatch
+					</h2>
+					<p className="text-sm text-gray-400 mb-4 text-center">
+						Dispatch forms to employees and manage their prefilled
+						configurations.
+					</p>
+					<Button
+						variant="primary"
+						className="w-full bg-blue-500 hover:bg-blue-400 text-white"
+						onClick={() => router.push("/form")}
+					>
+						Go to Form Dispatch
+					</Button>
+				</div>
 
-  return (
-    <div className="grid grid-cols-3 gap-8 min-h-screen p-8 bg-gradient-to-br from-gray-100 via-white to-gray-200 font-sans">
-      {/* Employee List */}
-      <aside className="col-span-1 bg-white shadow-lg rounded-lg p-4">
-        <h2 className="text-lg font-bold mb-4">Employees</h2>
-        <ul className="space-y-2">
-          {employees.map((employee, index) => (
-            <li
-              key={index}
-              className={`p-2 rounded cursor-pointer transition-all ${
-                selectedEmployee === employee
-                  ? "bg-blue-100 text-blue-700 font-medium"
-                  : "hover:bg-gray-100"
-              }`}
-              onClick={() => setSelectedEmployee(employee)}
-            >
-              {employee}
-            </li>
-          ))}
-        </ul>
-      </aside>
+				{/* Data and Metrics Section */}
+				<div className="flex flex-col items-center bg-neutral-800 p-6 rounded-lg shadow-lg">
+					<h2 className="text-xl font-semibold text-gray-300 mb-4">
+						Data and Metrics
+					</h2>
+					<p className="text-sm text-gray-400 mb-4 text-center">
+						Pull data and analyze metrics from submitted forms.
+					</p>
+					<Button
+						variant="primary"
+						className="w-full bg-blue-500 hover:bg-blue-400 text-white"
+						onClick={() => router.push("/data")}
+					>
+						Go to Data and Metrics
+					</Button>
+				</div>
 
-      {/* Cards Section */}
-      <main className="col-span-2 flex flex-col gap-6">
-        <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
-        <Separator />
+				{/* Data Management Setup Section */}
+				<div className="flex flex-col items-center bg-neutral-800 p-6 rounded-lg shadow-lg">
+					<h2 className="text-xl font-semibold text-gray-300 mb-4">
+						Embedded Environment
+					</h2>
+					<p className="text-sm text-gray-400 mb-4 text-center">
+						Configure and manage from an embedded JotForm environment.
+					</p>
+					<Button
+						variant="primary"
+						className="w-full bg-blue-500 hover:bg-blue-400 text-white"
+						onClick={() => router.push("/embedded")}
+					>
+						Go to Embedded
+					</Button>
+				</div>
+			</div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {formLinks.map((form, index) => (
-            <Card key={index} className="shadow-lg">
-              <CardHeader>
-                <CardTitle>{form.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-500 mb-4">
-                  Navigate to the {form.title.toLowerCase()} for the selected
-                  employee.
-                </p>
-                <Button
-                  onClick={() => handleFormNavigation(form.url)}
-                  variant="default"
-                  className="w-full"
-                >
-                  Go to Form
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </main>
-    </div>
-  );
+			<Separator className="border-neutral-700 my-8 w-full max-w-4xl" />
+		</div>
+	);
 }
